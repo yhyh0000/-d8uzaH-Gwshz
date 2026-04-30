@@ -31,12 +31,10 @@ jobs:
           sudo mv xray-knife /usr/local/bin/
           rm Xray-knife-linux-64.zip
 
-      # 2. 运行采集与测试
+      # 2. 运行采集去重
       - name: Fetch nodes
         run: python fetch.py
 
-      - name: Test nodes and generate subscribe
-        run: python tester.py
 
       # 3. 提交结果
       - name: Commit results
