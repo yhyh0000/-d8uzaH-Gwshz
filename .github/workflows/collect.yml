@@ -1,46 +1,30 @@
-name: Free Node Tester
+name: Collect and Merge V2Ray Nodes
 
 on:
   schedule:
-    - cron: "0 */6 * * *"
+    - cron: '0 */6 * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  test-nodes:
+  collect:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
-
-      - name: Install Python dependencies
+          python-version: '3.11'
+      - name: Install dependencies
         run: pip install requests pyyaml
-
-      # 1. 自动下载并安装 xray-knife
-      - name: Install xray-knife
-        run: |
-          wget -q https://github.com/lilendian0x00/xray-knife/releases/latest/download/Xray-knife-linux-64.zip
-          unzip -o Xray-knife-linux-64.zip
-          chmod +x xray-knife
-          sudo mv xray-knife /usr/local/bin/
-          rm Xray-knife-linux-64.zip
-
-      # 2. 运行采集去重
-      - name: Fetch nodes
+      - name: Run fetch script
         run: python fetch.py
-
-
-      # 3. 提交结果
-      - name: Commit results
+      - name: Commit and push results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "actions@github.com"
-          git add data/valid.txt data/valid_raw.txt
-          git diff --quiet && git diff --staged --quiet || git commit -m "Auto update valid nodes [skip ci]"
+          git add data/
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto update node lists [skip ci]"
           git push
