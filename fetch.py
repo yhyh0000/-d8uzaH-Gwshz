@@ -61,6 +61,10 @@ SOURCES = {
     "bin1site1_V2rayFree": {
         "base_url": "https://raw.githubusercontent.com/bin1site1/V2rayFree/main",
         "files": ["config.txt"]
+    },
+    "V2RayAggregator": {
+        "base_url": "https://raw.githubusercontent.com/mahdibland/V2RayAggregator/master",
+        "files": ["Eternity.txt"]
     }
 }
 
