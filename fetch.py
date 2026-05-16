@@ -79,7 +79,7 @@ DIRECT_SUBSCRIPTIONS = [
     "https://raw.githubusercontent.com/cxddgtb/dljdsjq/main/output/easy_proxy_nodes.txt",
     "https://raw.githubusercontent.com/cxddgtb/dljdsjq/main/output/easy_proxy_us_optimized.txt",
     "https://raw.githubusercontent.com/tglaoshiji/nodeshare/main/2026/v2ray.txt",
-    "https://raw.githubusercontent.com/SongMin90/freeproxy/blob/main/results/content.txt"
+    "https://raw.githubusercontent.com/SongMin90/freeproxy/main/results/content.txt"
 ]
 
 # 带日期的订阅（每天自动获取最新文件）
