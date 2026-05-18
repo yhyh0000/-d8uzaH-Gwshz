@@ -73,7 +73,8 @@ DIRECT_SUBSCRIPTIONS = [
     "https://raw.githubusercontent.com/cxddgtb/dljdsjq/main/output/nodes.txt",
     "https://raw.githubusercontent.com/tglaoshiji/nodeshare/main/2026/v2ray.txt",
     "https://raw.githubusercontent.com/SongMin90/freeproxy/main/results/content.txt",
-    "https://raw.githubusercontent.com/lanzm/MetaFetch/master/list.meta.yml"
+    "https://raw.githubusercontent.com/lanzm/MetaFetch/master/list.meta.yml",
+    "https://raw.githubusercontent.com/Au1rxx/free-vpn-subscriptions/main/output/v2ray-base64.txt"
 ]
 
 # 带日期的订阅（每天自动获取最新文件）
