@@ -46,7 +46,6 @@ SOURCES = {
         "base_url": "https://raw.githubusercontent.com/snakem982/proxypool/main",
         "files": [
             "source/clash-meta.yaml",
-            "source/clash-meta-2.yaml",
             "source/v2ray-2.txt"
         ]
     },
@@ -79,7 +78,8 @@ DIRECT_SUBSCRIPTIONS = [
     "https://raw.githubusercontent.com/cxddgtb/dljdsjq/main/output/easy_proxy_nodes.txt",
     "https://raw.githubusercontent.com/cxddgtb/dljdsjq/main/output/easy_proxy_us_optimized.txt",
     "https://raw.githubusercontent.com/tglaoshiji/nodeshare/main/2026/v2ray.txt",
-    "https://raw.githubusercontent.com/SongMin90/freeproxy/main/results/content.txt"
+    "https://raw.githubusercontent.com/SongMin90/freeproxy/main/results/content.txt",
+    "https://raw.githubusercontent.com/lanzm/MetaFetch/master/list.meta.yml"
 ]
 
 # 带日期的订阅（每天自动获取最新文件）
