@@ -71,12 +71,6 @@ SOURCES = {
 DIRECT_SUBSCRIPTIONS = [
     "https://sub.proxygo.org/v2ray.php?key=da43ab0d00ced8482e442845cae7258d",
     "https://raw.githubusercontent.com/cxddgtb/dljdsjq/main/output/nodes.txt",
-    "https://raw.githubusercontent.com/cxddgtb/dljdsjq/main/output/nodes_base64.txt",
-    "https://raw.githubusercontent.com/cxddgtb/dljdsjq/main/output/easy_proxy_asia.txt",
-    "https://raw.githubusercontent.com/cxddgtb/dljdsjq/main/output/easy_proxy_chatgpt.txt",
-    "https://raw.githubusercontent.com/cxddgtb/dljdsjq/main/output/easy_proxy_europe.txt",
-    "https://raw.githubusercontent.com/cxddgtb/dljdsjq/main/output/easy_proxy_nodes.txt",
-    "https://raw.githubusercontent.com/cxddgtb/dljdsjq/main/output/easy_proxy_us_optimized.txt",
     "https://raw.githubusercontent.com/tglaoshiji/nodeshare/main/2026/v2ray.txt",
     "https://raw.githubusercontent.com/SongMin90/freeproxy/main/results/content.txt",
     "https://raw.githubusercontent.com/lanzm/MetaFetch/master/list.meta.yml"
