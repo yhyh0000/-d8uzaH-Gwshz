@@ -70,7 +70,6 @@ SOURCES = {
 # ---------- 2. 直接订阅链接（固定 URL） ----------
 DIRECT_SUBSCRIPTIONS = [
     "https://sub.proxygo.org/v2ray.php?key=da43ab0d00ced8482e442845cae7258d",
-    "https://raw.githubusercontent.com/cxddgtb/dljdsjq/main/output/nodes.txt",
     "https://raw.githubusercontent.com/tglaoshiji/nodeshare/main/2026/v2ray.txt",
     "https://raw.githubusercontent.com/SongMin90/freeproxy/main/results/content.txt",
     "https://raw.githubusercontent.com/lanzm/MetaFetch/master/list.meta.yml",
