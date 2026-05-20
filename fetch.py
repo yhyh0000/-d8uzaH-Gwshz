@@ -74,7 +74,13 @@ DIRECT_SUBSCRIPTIONS = [
     "https://raw.githubusercontent.com/tglaoshiji/nodeshare/main/2026/v2ray.txt",
     "https://raw.githubusercontent.com/SongMin90/freeproxy/main/results/content.txt",
     "https://raw.githubusercontent.com/lanzm/MetaFetch/master/list.meta.yml",
-    "https://raw.githubusercontent.com/Au1rxx/free-vpn-subscriptions/main/output/v2ray-base64.txt"
+    "https://raw.githubusercontent.com/Au1rxx/free-vpn-subscriptions/main/output/v2ray-base64.txt",
+    "https://ip.cloudip.ggff.net",
+    "https://free.cndyw.ggff.net/sub",
+    "https://misaka.cndyw.ggff.net/sub",
+    "https://suba.cndyw.ggff.net/suba?sub",
+    "https://subb.cndyw.ggff.net/subb?sub",
+    "https://raw.githubusercontent.com/gslege/CloudflareIP/refs/heads/main/Vless.txt"
 ]
 
 # 带日期的订阅（每天自动获取最新文件）
