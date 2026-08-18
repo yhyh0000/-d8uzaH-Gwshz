@@ -458,22 +458,24 @@ def main():
         if node["type"] == "vmess":
             p.update({
                 "uuid": node.get("uuid", ""),
-                "alterId": node.get("alterId", 0),
+                "alterId": int(node.get("alterId", 0)) if node.get("alterId") and str(node.get("alterId")).isdigit() else 0,
                 "cipher": node.get("cipher", "auto"),
-                "tls": node.get("tls") == "tls"
+                "tls": bool(node.get("tls") == "tls")
             })
         elif node["type"] == "trojan":
             p.update({
                 "password": node.get("password", ""),
-                "sni": "",
-                "skip-cert-verify": True
+                "sni": node.get("sni", "") or "",
+                "skip-cert-verify": True,
+                "network": node.get("network", "tcp")
             })
         elif node["type"] == "vless":
             p.update({
                 "uuid": node.get("uuid", ""),
                 "flow": "",
                 "encryption": "none",
-                "tls": False
+                "network": node.get("network", "tcp"),
+                "tls": bool(node.get("tls", False))
             })
         elif node["type"] == "ss":
             p.update({
@@ -489,26 +491,62 @@ def main():
             })
         elif node["type"] == "hysteria2":
             p.update({
+                "port": node.get("port") or 443,
                 "auth": node.get("auth", ""),
                 "sni": node.get("sni", ""),
-                "skip-cert-verify": node.get("insecure", False)
+                "skip-cert-verify": bool(node.get("insecure", False))
             })
         proxies.append(p)
 
-    # 5. list.yml
+    # 5. 构建按地区分组的 proxy-groups
+    # 节点名去重（避免组内重复）
+    name_count = {}
+    for p in proxies:
+        n = p["name"]
+        name_count[n] = name_count.get(n, 0) + 1
+        if name_count[n] > 1:
+            p["name"] = f"{n} #{name_count[n]}"
+
+    # 按国旗 emoji 分组
+    import re as _re
+    region_map = {}
+    for p in proxies:
+        name = p["name"]
+        flags = _re.findall(r'[\U0001F1E0-\U0001F1FF]{2}', name)
+        if flags:
+            region = flags[0]
+        else:
+            region = "🌍 其他"
+        region_map.setdefault(region, []).append(p["name"])
+
+    # 按节点数排序地区（多的在前）
+    sorted_regions = sorted(region_map.items(), key=lambda x: -len(x[1]))
+
+    # 构建 proxy-groups
+    region_group_names = [f"{region} ({len(names)}个)" for region, names in sorted_regions]
+    groups = [
+        {"name": "🚀 节点选择", "type": "select", "proxies": ["♻️ 自动选择", "DIRECT"] + region_group_names},
+        {"name": "♻️ 自动选择", "type": "url-test", "url": "http://www.gstatic.com/generate_204", "interval": 300, "proxies": region_group_names},
+    ]
+    for region, names in sorted_regions:
+        groups.append({
+            "name": f"{region} ({len(names)}个)",
+            "type": "url-test",
+            "url": "http://www.gstatic.com/generate_204",
+            "interval": 300,
+            "proxies": names,
+        })
+
+    # 5. list.yml（标准 Clash，也带分组）
     yml_path = out_dir / "list.yml"
     with open(yml_path, "w", encoding="utf-8") as f:
-        yaml.dump({"proxies": proxies}, f, allow_unicode=True, sort_keys=False)
+        yaml.dump({"proxies": proxies, "proxy-groups": groups, "rules": ["MATCH,🚀 节点选择"]}, f, allow_unicode=True, sort_keys=False)
     print(f"生成 {yml_path}")
 
-    # 6. list.meta.yml
-    groups = [
-        {"name": "PROXY", "type": "select", "proxies": [p["name"] for p in proxies] + ["DIRECT"]},
-        {"name": "Auto", "type": "url-test", "url": "http://www.gstatic.com/generate_204", "interval": 300, "proxies": [p["name"] for p in proxies]}
-    ]
+    # 6. list.meta.yml（Clash.Meta 内核，同样结构）
     meta_yml_path = out_dir / "list.meta.yml"
     with open(meta_yml_path, "w", encoding="utf-8") as f:
-        yaml.dump({"proxies": proxies, "proxy-groups": groups}, f, allow_unicode=True, sort_keys=False)
+        yaml.dump({"proxies": proxies, "proxy-groups": groups, "rules": ["MATCH,🚀 节点选择"]}, f, allow_unicode=True, sort_keys=False)
     print(f"生成 {meta_yml_path}")
 
     # 7. list_result.csv
