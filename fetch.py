@@ -191,42 +191,46 @@ def parse_vmess(uri: str) -> Optional[Tuple[Dict, str]]:
 
 def parse_trojan(uri: str) -> Optional[Tuple[Dict, str]]:
     try:
-        pattern = r"trojan://([^@]+)@([^:]+):(\d+)(.*?)#?(.*)"
-        match = re.match(pattern, uri)
-        if match:
-            pwd, server, port, query, name = match.groups()
-            node = {
-                "name": unquote(name) if name else "trojan",
-                "type": "trojan",
-                "server": server,
-                "port": int(port),
-                "protocol": "trojan",
-                "uri": uri,
-                "password": pwd,
-            }
-            key = f"{node['server']}:{node['port']}:trojan:{node['password']}"
-            return node, key
+        from urllib.parse import urlparse, parse_qs
+        parsed = urlparse(uri)
+        server = parsed.hostname
+        port = parsed.port or 443
+        password = unquote(parsed.username or "")
+        name = unquote(parsed.fragment) if parsed.fragment else "trojan"
+        node = {
+            "name": name,
+            "type": "trojan",
+            "server": server,
+            "port": int(port),
+            "protocol": "trojan",
+            "uri": uri,
+            "password": password,
+        }
+        key = f"{node['server']}:{node['port']}:trojan:{node['password']}"
+        return node, key
     except:
         pass
     return None
 
 def parse_vless(uri: str) -> Optional[Tuple[Dict, str]]:
     try:
-        pattern = r"vless://([^@]+)@([^:]+):(\d+)(.*?)#?(.*)"
-        match = re.match(pattern, uri)
-        if match:
-            uuid, server, port, query, name = match.groups()
-            node = {
-                "name": unquote(name) if name else "vless",
-                "type": "vless",
-                "server": server,
-                "port": int(port),
-                "protocol": "vless",
-                "uri": uri,
-                "uuid": uuid,
-            }
-            key = f"{node['server']}:{node['port']}:vless:{node['uuid']}"
-            return node, key
+        from urllib.parse import urlparse, parse_qs
+        parsed = urlparse(uri)
+        server = parsed.hostname
+        port = parsed.port or 443
+        uuid = unquote(parsed.username or "")
+        name = unquote(parsed.fragment) if parsed.fragment else "vless"
+        node = {
+            "name": name,
+            "type": "vless",
+            "server": server,
+            "port": int(port),
+            "protocol": "vless",
+            "uri": uri,
+            "uuid": uuid,
+        }
+        key = f"{node['server']}:{node['port']}:vless:{node['uuid']}"
+        return node, key
     except:
         pass
     return None
